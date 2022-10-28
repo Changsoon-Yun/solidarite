@@ -9,6 +9,8 @@ button {
   background-color: transparent;
 }
 
-ul ol li {
+ul,
+ol,
+li {
   list-style: none;
 }
