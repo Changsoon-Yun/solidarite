@@ -4,19 +4,30 @@ import { useInView } from "react-intersection-observer";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useInfiniteScrollQuery } from "../../hooks/useInfiniteScrollQuery";
 import { listApi } from "./../../api/listApi";
 
 const PostList = () => {
   const navigate = useNavigate();
 
   const [list, setList] = useState([]);
-  const { tab, page } = useSelector((state) => state.listSlice);
+  const { tab } = useSelector((state) => state.listSlice);
 
   const [target, inView] = useInView();
+  const { getList, getNextPage, getBoardIsSuccess, getNextPageIsPossible } =
+    useInfiniteScrollQuery();
 
   useEffect(() => {
-    const data = { type: tab, page: page, search: "" };
-    listApi.getList(data).then((res) => setList(res.data));
+    if (inView && getNextPageIsPossible) {
+      getNextPage().then((res) => console.log(res));
+    }
+  }, [inView, getList]);
+
+  useEffect(() => {
+    const data = { type: tab, page: 0, search: "" };
+    listApi.getList(data).then((res) => {
+      setList(res.data);
+    });
   }, [tab]);
 
   const goDetail = (type, id) => {

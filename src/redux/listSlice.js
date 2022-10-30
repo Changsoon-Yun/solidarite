@@ -8,12 +8,8 @@ const listSlice = createSlice({
       console.log(payload);
       state.tab = payload;
     },
-    changePage: (state, { payload }) => {
-      console.log(payload);
-      state.page = payload;
-    },
   },
 });
 
-export const { changeTab, changePage } = listSlice.actions;
+export const { changeTab } = listSlice.actions;
 export default listSlice.reducer;
