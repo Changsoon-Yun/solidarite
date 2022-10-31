@@ -5,7 +5,6 @@ const listSlice = createSlice({
   initialState: { tab: "a", page: 0 },
   reducers: {
     changeTab: (state, { payload }) => {
-      console.log(payload);
       state.tab = payload;
     },
   },

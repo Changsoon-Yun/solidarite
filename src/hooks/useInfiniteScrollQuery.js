@@ -25,10 +25,7 @@ export const useInfiniteScrollQuery = () => {
     hasNextPage: getNextPageIsPossible,
   } = useInfiniteQuery(["list"], getPageBoard, {
     getNextPageParam: (lastPage, pages) => {
-      // lastPage와 pages는 콜백함수에서 리턴한 값을 의미한다!!
-      // lastPage: 직전에 반환된 리턴값, pages: 여태 받아온 전체 페이지
       if (!lastPage.isLast) return lastPage.current_page + 1;
-      // 마지막 페이지면 undefined가 리턴되어서 hasNextPage는 false가 됨!
       return undefined;
     },
   });
